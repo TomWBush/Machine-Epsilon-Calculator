@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<head>
+    <title>Machine Epsilon Calculator</title>
+    <meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="style.css">
+    <script src="js/platform.js/platform.js"></script>
+    <script>
+    function writeDeviceType() {
+        document.getElementById("deviceName").innerHTML = platform.description;
+    }
+
+    function calculateME() {
+        eps = 1;
+        cnt = 1;
+
+        x = 1 + eps;
+
+        while (x > 1) {
+            eps = eps/2;
+            x = 1 + eps;
+            <!-- disp([cnt eps x]); -->
+            cnt = cnt + 1;
+        }
+        console.log(cnt, eps);
+        document.getElementById("count").innerHTML = cnt;
+        document.getElementById("epsilon").innerHTML = eps;
+    }
+
+    function initialize() {
+        writeDeviceType();
+        calculateME();
+    }
+    </script>
+</head>
+<body onload="initialize()">
+    <h1>Calculate your Machine Epsilon</h1>
+    <p>Your are running on <strong><span id="deviceName"></span></strong></p>
+    <p>Your machine epsilon is: <span id="epsilon"></span></p>
+    <p>Divide by two <span id="count"></span> times</p>
+</body>
+</html>
