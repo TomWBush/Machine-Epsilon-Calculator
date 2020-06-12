@@ -24,6 +24,7 @@
                 Calculate your Machine Epsilon
                 <a
                     tabindex="0"
+                    id="question-mark"
                     role="button"
                     data-toggle="popover"
                     data-trigger="focus"
@@ -42,15 +43,23 @@
                 </ul>
             </div>
             <!-- <p>Your machine epsilon is: <strong><span id="epsilon"></span></strong></p> -->
-            <form class="form-horizontal">
-                <div class="form-group">
-                    <label class="control-label">Your machine epsilon is </label>
-                </div>
-                <div>
-                    <input type="text" class="form-control input">
+            <form id="epsilon-form">
+                <div class="row mx-0">
+                    <div class="form-group col-md-4 px-0">
+                        <span id="form-label">Your machine epsilon is</span>
+                    </div>
+                    <div class="form-group col-md-6 px-0">
+                        <input id="machine-epsilon" type="text" class="form-control">
+                    </div>
+                    <div class="form-group col-md-2">
+                        <button type="button" class="btn btn-primary" onclick="calculateME()">Calculate</button>
+                    </div>
                 </div>
             </form>
-            <p>Divide by two <strong><span id="count"></span></strong> times</p>
+            <button id="show-info" class="btn btn-link" onclick="showInfo()">Help me understand the number</button>
+            <div id="number-info">
+                <p>Divide by two <strong><span id="count"></span></strong> times</p>
+            </div>
         </div>
     </div>
 </body>

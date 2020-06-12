@@ -12,9 +12,14 @@ function calculateME() {
         x = 1 + eps;
         cnt = cnt + 1;
     }
-    console.log(cnt, eps);
-    document.getElementById("count").innerHTML = cnt;
-    document.getElementById("epsilon").innerHTML = eps;
+    // console.log(cnt, eps);
+    $("#machine-epsilon").val(eps);
+    $("#count").html(cnt);
+    $("#show-info").css("display", "block");
+}
+
+function showInfo() {
+    $("#number-info").css("display", "block");
 }
 
 /**
