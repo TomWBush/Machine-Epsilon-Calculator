@@ -8,7 +8,7 @@ function calculateME() {
     x = 1 + eps;
 
     while (x > 1) {
-        eps = eps/2;
+        eps = eps / 2;
         x = 1 + eps;
         cnt = cnt + 1;
     }
