@@ -2,40 +2,56 @@
 <head>
     <title>Machine Epsilon Calculator</title>
     <meta charset="UTF-8">
-	<link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <!-- Popper.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <!-- Bootstrap 4 -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <!-- fontAwesome -->
+    <script src="https://use.fontawesome.com/c476764c5b.js"></script>
+    <!-- platform.js library -->
     <script src="js/platform.js"></script>
-    <script>
-    function writeDeviceType() {
-        document.getElementById("deviceName").innerHTML = platform.description;
-    }
-
-    function calculateME() {
-        eps = 1;
-        cnt = 1;
-
-        x = 1 + eps;
-
-        while (x > 1) {
-            eps = eps/2;
-            x = 1 + eps;
-            <!-- disp([cnt eps x]); -->
-            cnt = cnt + 1;
-        }
-        console.log(cnt, eps);
-        document.getElementById("count").innerHTML = cnt;
-        document.getElementById("epsilon").innerHTML = eps;
-    }
-
-    function initialize() {
-        writeDeviceType();
-        calculateME();
-    }
-    </script>
+    <script src="js/scripts.js"></script>
 </head>
 <body onload="initialize()">
-    <h1>Calculate your Machine Epsilon</h1>
-    <p>Your are running on <strong><span id="deviceName"></span></strong></p>
-    <p>Your machine epsilon is: <span id="epsilon"></span></p>
-    <p>Divide by two <span id="count"></span> times</p>
+    <div class="container">
+        <div class="page-header">
+            <h1>
+                Calculate your Machine Epsilon
+                <a
+                    tabindex="0"
+                    role="button"
+                    data-toggle="popover"
+                    data-trigger="focus"
+                    title="What is Machine epsilon?"
+                    data-content="Machine epsilon is the difference between 1 and the next nearest number representable as a machine number.">
+                    <i class="fa fa-question-circle" aria-hidden="true"></i>
+                </a>
+            </h1>
+            <span class="glyphicon glyphicon-question-sign" rel="popover" data-trigger="hover" data-toggle="popover" data-placement="bottom" title="Title" data-content="Content"></span>
+            <div class="card">
+                <div class="card-header">
+                    Your are running on
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><strong><span id="deviceName"></span></strong></li>
+                </ul>
+            </div>
+            <!-- <p>Your machine epsilon is: <strong><span id="epsilon"></span></strong></p> -->
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label class="control-label">Your machine epsilon is </label>
+                </div>
+                <div>
+                    <input type="text" class="form-control input">
+                </div>
+            </form>
+            <p>Divide by two <strong><span id="count"></span></strong> times</p>
+        </div>
+    </div>
 </body>
 </html>
