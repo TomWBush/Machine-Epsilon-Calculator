@@ -14,6 +14,8 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <!-- fontAwesome -->
     <script src="https://use.fontawesome.com/c476764c5b.js"></script>
+    <!-- plotly.js -->
+	<script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
     <!-- MathJax -->
     <script type="text/x-mathjax-config">
         MathJax.Hub.Config({
@@ -76,6 +78,8 @@
                 <h5 id="info-header">What we did to calculate your Machine epsilon: </h5>
                 <p>We start with \(eps = 0.5\), and divide it by \(2\) after each iteration. During each iteration, we add \(eps\) to \(1\) and check whether your machine can differentiate this number from \(1\).</p>
                 <p>Your machine stopped to differentiate \(eps + 1\) from \(1\) after the initial \(eps = 0.5\) was divided by \(2\) <strong><span id="count"></span></strong> times</p>
+                <h5 id="info-header">See where your machine stands: </h5>
+                <div id="epsilon-graph"></div>
             </div>
         </div>
     </div>
