@@ -13,7 +13,7 @@
     <!-- Bootstrap 4 -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <!-- fontAwesome -->
-    <script src="https://use.fontawesome.com/c476764c5b.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     <!-- plotly.js -->
 	<script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
     <!-- MathJax -->
@@ -29,7 +29,8 @@
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <!-- platform.js library -->
     <script src="js/platform.js"></script>
-    <script src="js/scripts.js"></script>
+    <!-- highcharts.js library -->
+    <script src="js/highcharts.js"></script>
 </head>
 <body onload="initialize()">
     <div class="container">
@@ -56,21 +57,47 @@
                     <li class="list-group-item"><strong><span id="deviceName"></span></strong></li>
                 </ul>
             </div>
-            <!-- <p>Your machine epsilon is: <strong><span id="epsilon"></span></strong></p> -->
-            <form id="epsilon-form">
-                <div class="row mx-0">
-                    <div class="form-group col-md-4 px-0">
-                        <span id="form-label">Your machine epsilon is</span>
+
+            <div class="row" id="animation">
+                <div id="container"> </div>
+                <div>
+                    <div class="values">
+                        <h4> Current values </h4>
+                        <p id="current-val"></p>
+                        <p id="eps" style="display: none"></p>
+                        <p id="xplus"></p>
+                        <p id="graph-count"></p>
                     </div>
-                    <div class="form-group col-md-6 px-0">
-                        <input id="machine-epsilon" type="text" class="form-control">
-                    </div>
-                    <div class="form-group col-md-2">
-                        <button type="button" class="btn btn-primary" onclick="calculateME()">Calculate</button>
-                    </div>
+                        <div id="step-button">
+                            <button type="button" class="btn btn-light" id="prevStep" onclick="removePoint();"><i class="fas fa-backward"></i>  Previous Step</button>
+                            <button type="button" class="btn btn-light" id="nextStep" onclick="addDataPoint();">Next Step  <i class="fas fa-forward"></i></button>
+                        </div>
+                        <div id="anime-button">
+                            <button type="button" class="btn btn-primary" id="playButton" onclick="startAnimation();"> Play  <i class="fas fa-play"></i> </button>
+                            <button type="button" class="btn btn-warning" id="stopButton" onclick="stopAnimation();"> Pause  <i class="fas fa-pause"></i></button>
+                            <button type="button" class="btn btn-danger" id="resetButton" onclick="reset();"> Reset </button>  
+                        </div>
+                    <h4 style="padding-top: 0.5em;"> Speed </h4>
+                    <input class="slider" id="speed-slider" type="range" step="50" min="0" max="1000" value="500" onchange="changeSpeed();">
                 </div>
-            </form>
-            <button id="show-info" class="btn btn-link" onclick="showInfo()">Help me understand this number</button>
+            </div>
+
+            <div id="epsilon-form">
+                <form>
+                    <div class="row mx-0">
+                        <div class="form-group col-md-4 px-0">
+                            <span id="form-label">Your machine epsilon is</span>
+                        </div>
+                        <div class="form-group col-md-6 px-0">
+                            <input id="machine-epsilon" type="text" class="form-control">
+                        </div>
+                        <div class="form-group col-md-2">
+                            <button type="button" class="btn btn-primary" onclick="calculateME(true)">Calculate</button>
+                        </div>
+                    </div>
+                </form>
+                <button id="show-info" class="btn btn-link" onclick="showInfo()">Help me understand this number</button>
+            </div>
             <div id="number-info">
                 <h5 id="info-header">Definition of Machine epsilon: </h5>
                 <p id="equation">$$eps := \frac{\beta^{1-p}}{2}$$</p>
@@ -83,5 +110,8 @@
             </div>
         </div>
     </div>
+    <script src="js/scripts.js"></script>
+    <script src="js/graph.js"></script>
+    <script src="js/dom.js"></script>
 </body>
 </html>
