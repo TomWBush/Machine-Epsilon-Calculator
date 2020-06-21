@@ -1,21 +1,32 @@
 /**
+ * @author Tom Wang
+ * 
+ * Helper JS functions
+ */
+
+/**
  * Calculate Machine Epsilon
  */
-function calculateME() {
-    eps = 1;
-    cnt = 0;
+function calculateME(display) {
+    let eps = 1;
+    let cnt = 0;
 
-    x = 1 + eps;
+    let x = 1 + eps;
+    let results = [];
 
     while (x > 1) {
         eps = eps / 2;
         x = 1 + eps;
+        results.push(eps);
         cnt = cnt + 1;
     }
     // console.log(cnt, eps);
-    $("#machine-epsilon").val(eps);
-    $("#count").html(cnt);
-    $("#show-info").css("display", "block");
+    if (display) {
+        $("#machine-epsilon").val(eps);
+        $("#count").html(cnt);
+        $("#show-info").css("display", "block");
+    }
+    return results;
 }
 
 function showInfo() {
