@@ -68,6 +68,10 @@ p {
     width: 20% !important;
 }
 
+#animation {
+    height: 550% !important;
+}
+
 #step-button {
     margin-bottom: 0.5em;
 }

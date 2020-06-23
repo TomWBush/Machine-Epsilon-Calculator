@@ -5,7 +5,7 @@
  * using high charts library (highcharts.js)
  */
 function resetGraph(){
-    document.getElementById("current-val").innerHTML = "1 + Eps = " + 2;
+    document.getElementById("current-val").innerHTML = "log(Epsilon) = " + 0;
     document.getElementById("eps").innerHTML = "Epsilon: " + 1;
     document.getElementById("graph-count").innerHTML = "Count: " + 0;
     
@@ -13,8 +13,8 @@ function resetGraph(){
         chart: {
             renderTo: 'container',
             animation: true,
-            width: 650,
-            heigth: 400,
+            width: 750,
+            heigth: 900,
         },
         title: {
             text: 'Machine Epsilon Calculation Visualization'
@@ -23,10 +23,11 @@ function resetGraph(){
 
         yAxis: {
             title: {
-                text: '1 + Epsilon'
+                text: 'log(Epsilon)'
             },
-             min: 1,
-             max: 2,
+             min: -40,
+             max: 1,
+             tickInterval: 3,
         },
          tooltip: {
          useHTML: true,
@@ -48,7 +49,7 @@ function resetGraph(){
         plotOptions: {
             line: {
                  dataLabels: {
-                     enabled: true
+                     enabled: false
                  },
                  enableMouseTracking: true
             },
@@ -56,13 +57,13 @@ function resetGraph(){
                 label: {
                     connectorAllowed: false
                 },
-                pointStart: 0,
+                pointStart: 1,
             }
         },
 
         series: [{
-            name: '1+Epsilon',
-            data: [2]
+            name: 'log(Epsilon)',
+            data: []
         }],
 
         responsive: {
@@ -98,9 +99,9 @@ function addDataPoint(){
         newArray.push(chart.series[0].data[i].y)
     }
     
-    newArray.push(epsilons[nextPoint]+1);
+    newArray.push(Math.log(epsilons[nextPoint]));
     
-    document.getElementById("current-val").innerHTML = "1 + Eps = " + (epsilons[nextPoint]+1);
+    document.getElementById("current-val").innerHTML = "log(Epsilon) = " + Math.log(epsilons[nextPoint]);
     document.getElementById("eps").innerHTML = "Epsilon: " + epsilons[nextPoint];
     document.getElementById("graph-count").innerHTML = "Count: " + (nextPoint+1);
     
@@ -119,7 +120,7 @@ function removePoint(){
         newArray.push(chart.series[0].data[i].y)
     }
     
-    document.getElementById("current-val").innerHTML = "1 + Eps = " + (epsilons[nextPoint-2]+1);
+    document.getElementById("current-val").innerHTML = "log(Epsilon) = " + Math.log(epsilons[nextPoint-2]);
     document.getElementById("eps").innerHTML = "Epsilon: " + epsilons[nextPoint-2];
     document.getElementById("graph-count").innerHTML = "Count: " + (nextPoint);
     
