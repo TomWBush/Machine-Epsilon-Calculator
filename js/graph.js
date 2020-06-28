@@ -5,9 +5,9 @@
  * using high charts library (highcharts.js)
  */
 function resetGraph(){
-    document.getElementById("current-val").innerHTML = "log(Epsilon) = " + 0;
-    document.getElementById("eps").innerHTML = "Epsilon: " + 1;
-    document.getElementById("graph-count").innerHTML = "Count: " + 0;
+    // document.getElementById("current-val").innerHTML = "log(Epsilon) = " + 0;
+    // document.getElementById("eps").innerHTML = "Epsilon: " + 1;
+    // document.getElementById("graph-count").innerHTML = "Count: " + 0;
     
     return new Highcharts.chart({                  
         chart: {
@@ -61,9 +61,22 @@ function resetGraph(){
             }
         },
 
-        series: [{
-            name: 'log(Epsilon)',
-            data: []
+        legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'top',
+            x: -10,
+            y: 100
+        },
+
+        series: [
+            {
+                name: 'Epsilon',
+                data: []
+            },
+            {
+                name: 'log(Epsilon)',
+                data: []
         }],
 
         responsive: {
@@ -93,21 +106,27 @@ function addDataPoint(){
         clearInterval(repeat);
         return;
     }
-    let newArray = []
+    let EpArray = [];
+    let EpLogArray = [];
     // form new series
-    for(i = 0; i < chart.series[0].data.length; i++){
-        newArray.push(chart.series[0].data[i].y)
+    for(let i = 0; i < chart.series[0].data.length; i++){
+        EpArray.push(chart.series[0].data[i].y);
+        EpLogArray.push(chart.series[1].data[i].y);
     }
     
-    newArray.push(Math.log(epsilons[nextPoint]));
+    EpArray.push(1 + epsilons[nextPoint]);
+    EpLogArray.push(Math.log(epsilons[nextPoint]));
     
-    document.getElementById("current-val").innerHTML = "log(Epsilon) = " + Math.log(epsilons[nextPoint]);
-    document.getElementById("eps").innerHTML = "Epsilon: " + epsilons[nextPoint];
-    document.getElementById("graph-count").innerHTML = "Count: " + (nextPoint+1);
+    // document.getElementById("current-val").innerHTML = "log(Epsilon) = " + Math.log(epsilons[nextPoint]);
+    // document.getElementById("eps").innerHTML = "Epsilon: " + epsilons[nextPoint];
+    // document.getElementById("graph-count").innerHTML = "Count: " + (nextPoint+1);
     
     // render new data on graph
     chart.series[0].update({
-        data: newArray
+        data: EpArray
+    }, true);
+    chart.series[1].update({
+        data: EpLogArray
     }, true);
     nextPoint += 1;
 };
@@ -115,18 +134,24 @@ function addDataPoint(){
 function removePoint(){
     if (nextPoint <= 1) return;
     
-    let newArray = [];
-    for(i = 0; i < chart.series[0].data.length - 1; i++){
-        newArray.push(chart.series[0].data[i].y)
+    let EpArray = [];
+    let EpLogArray = [];
+
+    for(let i = 0; i < chart.series[0].data.length - 1; i++){
+        EpArray.push(chart.series[0].data[i].y)
+        EpLogArray.push(chart.series[1].data[i].y)
     }
     
-    document.getElementById("current-val").innerHTML = "log(Epsilon) = " + Math.log(epsilons[nextPoint-2]);
-    document.getElementById("eps").innerHTML = "Epsilon: " + epsilons[nextPoint-2];
-    document.getElementById("graph-count").innerHTML = "Count: " + (nextPoint);
+    // document.getElementById("current-val").innerHTML = "log(Epsilon) = " + Math.log(epsilons[nextPoint-2]);
+    // document.getElementById("eps").innerHTML = "Epsilon: " + epsilons[nextPoint-2];
+    // document.getElementById("graph-count").innerHTML = "Count: " + (nextPoint);
     
     // render new data on graph
     chart.series[0].update({
-        data: newArray
+        data: EpArray
+    }, true);
+    chart.series[1].update({
+        data: EpLogArray
     }, true);
     nextPoint -= 1;
 };
