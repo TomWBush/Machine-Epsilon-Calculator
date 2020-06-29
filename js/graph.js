@@ -23,7 +23,7 @@ function resetGraph(){
 
         yAxis: {
             title: {
-                text: 'log(Epsilon)'
+                text: ''
             },
              min: -40,
              max: 1,
@@ -62,20 +62,25 @@ function resetGraph(){
         },
 
         legend: {
+            itemStyle: {
+                font: '10pt Trebuchet MS, Verdana, sans-serif'
+             },
             layout: 'vertical',
-            align: 'right',
+            align: 'left',
             verticalAlign: 'top',
             x: -10,
-            y: 100
+            y: 200,
+            padding: 0,
+            margin: 3,
         },
 
         series: [
             {
-                name: 'Epsilon',
+                name: 'y = Epsilon',
                 data: []
             },
             {
-                name: 'log(Epsilon)',
+                name: 'y = log(Epsilon)',
                 data: []
         }],
 
