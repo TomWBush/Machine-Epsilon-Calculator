@@ -76,11 +76,11 @@ function resetGraph(){
 
         series: [
             {
-                name: 'y = Epsilon',
+                name: 'Epsilon',
                 data: []
             },
             {
-                name: 'y = log(Epsilon)',
+                name: 'log(Epsilon)',
                 data: []
         }],
 
