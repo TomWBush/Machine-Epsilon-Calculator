@@ -5,9 +5,6 @@
  * using high charts library (highcharts.js)
  */
 function resetGraph(){
-    // document.getElementById("current-val").innerHTML = "log(Epsilon) = " + 0;
-    // document.getElementById("eps").innerHTML = "Epsilon: " + 1;
-    // document.getElementById("graph-count").innerHTML = "Count: " + 0;
     
     return new Highcharts.chart({                  
         chart: {
@@ -25,9 +22,8 @@ function resetGraph(){
             title: {
                 text: ''
             },
-             min: -40,
-             max: 1,
-             tickInterval: 3,
+             min: -1,
+             max: 1.5,
         },
          tooltip: {
          useHTML: true,
@@ -107,24 +103,25 @@ var chart = resetGraph();
 var nextPoint = 0;
 
 function addDataPoint(){
-    if(nextPoint >= epsilons.length){
+    if (nextPoint >= epsilons.length) {
         clearInterval(repeat);
         return;
     }
     let EpArray = [];
     let EpLogArray = [];
     // form new series
-    for(let i = 0; i < chart.series[0].data.length; i++){
+    for (let i = 0; i < chart.series[0].data.length; i++) {
         EpArray.push(chart.series[0].data[i].y);
         EpLogArray.push(chart.series[1].data[i].y);
     }
     
     EpArray.push(1 + epsilons[nextPoint]);
     EpLogArray.push(Math.log(epsilons[nextPoint]));
-    
-    // document.getElementById("current-val").innerHTML = "log(Epsilon) = " + Math.log(epsilons[nextPoint]);
-    // document.getElementById("eps").innerHTML = "Epsilon: " + epsilons[nextPoint];
-    // document.getElementById("graph-count").innerHTML = "Count: " + (nextPoint+1);
+
+    // Dynamically change y-axis range
+    chart.yAxis[0].update({
+        min: Math.min(EpArray[EpArray.length - 1], EpLogArray[EpLogArray.length - 1])
+    });
     
     // render new data on graph
     chart.series[0].update({
@@ -142,14 +139,15 @@ function removePoint(){
     let EpArray = [];
     let EpLogArray = [];
 
-    for(let i = 0; i < chart.series[0].data.length - 1; i++){
+    for (let i = 0; i < chart.series[0].data.length - 1; i++) {
         EpArray.push(chart.series[0].data[i].y)
         EpLogArray.push(chart.series[1].data[i].y)
     }
-    
-    // document.getElementById("current-val").innerHTML = "log(Epsilon) = " + Math.log(epsilons[nextPoint-2]);
-    // document.getElementById("eps").innerHTML = "Epsilon: " + epsilons[nextPoint-2];
-    // document.getElementById("graph-count").innerHTML = "Count: " + (nextPoint);
+
+    // Dynamically change y-axis range
+    chart.yAxis[0].update({
+        min: Math.min(EpArray[EpArray.length - 1], EpLogArray[EpLogArray.length - 1])
+    });
     
     // render new data on graph
     chart.series[0].update({
