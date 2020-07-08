@@ -30,16 +30,20 @@ p {
     font-size: 0.9em;
 }
 
-#epsilon-form {
+/* #epsilon-form {
     display: block;
     width: 50%;
-}
+} */
 
-#form-label {
+/* #form-label {
     font-size: 1.05em !important;
     position: relative;
     margin-right: 0.2em;
     top: 0.25em;
+} */
+
+#me-header {
+    margin-top: 0.5em;
 }
 
 .btn-link {

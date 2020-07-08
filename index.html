@@ -73,16 +73,18 @@
                             <button type="button" class="btn btn-light" id="nextStep" onclick="addDataPoint();">Next Step  <i class="fas fa-forward"></i></button>
                         </div>
                         <div id="anime-button">
-                            <button type="button" class="btn btn-primary" id="playButton" onclick="startAnimation();"> Play  <i class="fas fa-play"></i> </button>
+                            <button type="button" class="btn btn-primary" id="calculateButton" onclick="startAnimation();"> Calculate  <i class="fas fa-play"></i> </button>
                             <button type="button" class="btn btn-warning" id="stopButton" onclick="stopAnimation();"> Pause  <i class="fas fa-pause"></i></button>
                             <button type="button" class="btn btn-danger" id="resetButton" onclick="reset();"> Reset </button>  
                         </div>
+                        <h5 id="me-header">Your machine epsilon is</h5>
+                        <input id="machine-epsilon" type="text" class="form-control">
                     <h4 style="padding-top: 0.5em;"> Speed </h4>
                     <input class="slider" id="speed-slider" type="range" step="50" min="0" max="1000" value="500" onchange="changeSpeed();">
                 </div>
             </div>
 
-            <div id="epsilon-form">
+            <!-- <div id="epsilon-form">
                 <form>
                     <div class="row mx-0">
                         <div class="form-group col-md-4 px-0">
@@ -95,8 +97,8 @@
                             <button type="button" class="btn btn-primary" onclick="calculateME(true)">Calculate</button>
                         </div>
                     </div>
-                </form>
-                <button id="show-info" class="btn btn-link" onclick="showInfo()">Help me understand this number</button>
+                </form> -->
+                <button id="show-info" class="btn btn-link" onclick="showInfo()">Help me understand my machine epsilon</button>
             </div>
             <div id="number-info">
                 <h5 id="info-header">Definition of Machine epsilon: </h5>
