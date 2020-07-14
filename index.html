@@ -1,119 +1,61 @@
 <!DOCTYPE html>
-<head>
-    <title>Machine Epsilon Calculator</title>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <link rel="shortcut icon" href="favicon.ico">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
-    <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <!-- Popper.js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <!-- Bootstrap 4 -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <!-- fontAwesome -->
-    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
-    <!-- plotly.js -->
-	<script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
-    <!-- MathJax -->
-    <script type="text/x-mathjax-config">
-        MathJax.Hub.Config({
-          tex2jax: {
-            inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-            processEscapes: true
-          }
-        });
-      </script>
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <!-- platform.js library -->
-    <script src="js/platform.js"></script>
-    <!-- highcharts.js library -->
-    <script src="js/highcharts.js"></script>
-</head>
-<body onload="initialize()">
-    <div class="container">
-        <div class="page-header">
-            <h1>
-                Calculate your Machine Epsilon
-                <a
-                    tabindex="0"
-                    id="question-mark"
-                    role="button"
-                    data-toggle="popover"
-                    data-trigger="focus"
-                    title="What is Machine epsilon?"
-                    data-content="Machine epsilon is the difference between 1 and the next nearest number representable as a machine number.">
-                    <i class="fa fa-question-circle" aria-hidden="true"></i>
-                </a>
-            </h1>
-            <span class="glyphicon glyphicon-question-sign" rel="popover" data-trigger="hover" data-toggle="popover" data-placement="bottom" title="Title" data-content="Content"></span>
-            <div class="card">
-                <div class="card-header">
-                    Your are running on
-                </div>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item"><strong><span id="deviceName"></span></strong></li>
-                </ul>
-            </div>
-
-            <div class="row" id="animation">
-                <div id="container"> </div>
-                <div>
-                    <div class="values">
-                        <h4> Control </h4>
-                        <!-- <p id="current-val"></p>
-                        <p id="eps" style="display: none"></p>
-                        <p id="xplus"></p>
-                        <p id="graph-count"></p> -->
+<html>
+    <head>
+        <title>Machine Epsilon Calculator</title>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+        <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
+        <link rel="shortcut icon" href="favicon.ico">
+    </head>
+    <body onload="initialize()">
+        <div class="container">
+            <div class="page-header">
+                <h1>Calculate your Machine Epsilon</h1>
+                <div class="card">
+                    <div class="card-header">
+                        Your are running on
                     </div>
-                        <div id="step-button">
-                            <button type="button" class="btn btn-light" id="prevStep" onclick="removePoint();"><i class="fas fa-backward"></i>  Previous Step</button>
-                            <button type="button" class="btn btn-light" id="nextStep" onclick="addDataPoint();">Next Step  <i class="fas fa-forward"></i></button>
-                        </div>
-                        <div id="anime-button">
-                            <button type="button" class="btn btn-primary" id="calculateButton" onclick="startAnimation();"> Calculate  <i class="fas fa-play"></i> </button>
-                            <button type="button" class="btn btn-warning" id="stopButton" onclick="stopAnimation();"> Pause  <i class="fas fa-pause"></i></button>
-                            <button type="button" class="btn btn-danger" id="resetButton" onclick="reset();"> Reset </button>  
-                        </div>
-                        <h5 id="me-header">Your machine epsilon is</h5>
-                        <input id="machine-epsilon" type="text" class="form-control">
-                    <h4 style="padding-top: 0.5em;"> Speed </h4>
-                    <input class="slider" id="speed-slider" type="range" step="50" min="0" max="1000" value="500" onchange="changeSpeed();">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><strong><span id="deviceName"></span></strong></li>
+                    </ul>
                 </div>
-            </div>
 
-            <!-- <div id="epsilon-form">
-                <form>
-                    <div class="row mx-0">
-                        <div class="form-group col-md-4 px-0">
-                            <span id="form-label">Your machine epsilon is</span>
+                <div class="row" id="animation">
+                    <div id="container"> </div>
+                    <div>
+                        <div class="values">
+                            <h4> Control </h4>
                         </div>
-                        <div class="form-group col-md-6 px-0">
+                            <div id="step-button">
+                                <button type="button" class="btn btn-light" id="prevStep" onclick="removePoint();"><i class="fas fa-backward"></i>  Previous Step</button>
+                                <button type="button" class="btn btn-light" id="nextStep" onclick="addDataPoint();">Next Step  <i class="fas fa-forward"></i></button>
+                            </div>
+                            <div id="anime-button">
+                                <button type="button" class="btn btn-primary" id="calculateButton" onclick="startAnimation();"> Calculate  <i class="fas fa-play"></i> </button>
+                                <button type="button" class="btn btn-warning" id="stopButton" onclick="stopAnimation();"> Pause  <i class="fas fa-pause"></i></button>
+                                <button type="button" class="btn btn-danger" id="resetButton" onclick="reset();"> Reset </button>  
+                            </div>
+                            <h5 id="me-header">Your machine epsilon is</h5>
                             <input id="machine-epsilon" type="text" class="form-control">
-                        </div>
-                        <div class="form-group col-md-2">
-                            <button type="button" class="btn btn-primary" onclick="calculateME(true)">Calculate</button>
-                        </div>
+                        <h4 style="padding-top: 0.5em;"> Speed </h4>
+                        <input class="slider" id="speed-slider" type="range" step="50" min="0" max="1000" value="500" onchange="changeSpeed();">
                     </div>
-                </form> -->
-                <button id="show-info" class="btn btn-link" onclick="showInfo()">Help me understand my machine epsilon</button>
-            </div>
-            <div id="number-info">
-                <h5 id="info-header">Definition of Machine epsilon: </h5>
-                <p id="equation">$$eps := \frac{\beta^{1-p}}{2}$$</p>
-                <p>where \(\beta\) is the base and \(p\) is the precision</p>
-                <h5 id="info-header">What we did to calculate your Machine epsilon: </h5>
-                <p>We start with \(eps = 0.5\), and divide it by \(2\) after each iteration. During each iteration, we add \(eps\) to \(1\) and check whether your machine can differentiate this number from \(1\).</p>
-                <p>Your machine stopped to differentiate \(eps + 1\) from \(1\) after the initial \(eps = 0.5\) was divided by \(2\) <strong><span id="count"></span></strong> times</p>
-                <h5 id="info-header">See where your machine stands: </h5>
-                <div id="epsilon-graph"></div>
+                </div>
             </div>
         </div>
-    </div>
-    <script src="js/scripts.js"></script>
-    <script src="js/graph.js"></script>
-    <script src="js/dom.js"></script>
-</body>
+        <!-- jQuery -->
+        <script src="js/jquery-3.3.1.slim.min.js"></script>
+        <!-- Bootstrap 4 -->
+        <script src="js/bootstrap/bootstrap.min.js"></script>
+        <!-- fontAwesome -->
+        <script src="js/fontawesome.js"></script>
+        <!-- platform.js library -->
+        <script src="js/platform.js"></script>
+        <!-- highcharts.js library -->
+        <script src="js/highcharts.js"></script>
+
+        <script src="js/scripts.js"></script>
+        <script src="js/graph.js"></script>
+        <script src="js/dom.js"></script>
+    </body>
 </html>
