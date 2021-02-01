@@ -7,7 +7,7 @@
 /**
  * Calculate Machine Epsilon
  */
-function calculateME(display) {
+function calculateME() {
     let eps = 1;
     let cnt = 0;
 
@@ -20,12 +20,14 @@ function calculateME(display) {
         results.push(eps);
         cnt = cnt + 1;
     }
-    if (display) {
-        $("#machine-epsilon").val(eps);
-        $("#count").html(cnt);
-        $("#show-info").css("display", "block");
-    }
     return results;
+}
+
+/**
+ * Helper for writing current epsilon into the text field
+ */
+function writeEpsilonValue(eps) {
+    $("#machine-epsilon").val(eps);
 }
 
 /**

@@ -30,7 +30,7 @@ function resetGraph(){
                 formatter: function(d){
                             // customize hover box
                              var rV = "Count: " + this.x + "<br/>";
-                             rV += "<span style='font-size: 12px'>Epsilon: " + (this.y-1) + "</span><br/>"
+                             rV += "<span style='font-size: 12px'>Log10(Epsilon): " + (this.y) + "</span><br/>"
                              return rV;
                 },
          },
@@ -72,11 +72,7 @@ function resetGraph(){
 
         series: [
             {
-                name: 'Epsilon',
-                data: []
-            },
-            {
-                name: 'log(Epsilon)',
+                name: 'Log10(Epsilon)',
                 data: []
         }],
 
@@ -98,7 +94,7 @@ function resetGraph(){
     });
 };
 
-var epsilons = calculateME(false);
+var epsilons = calculateME();
 var chart = resetGraph();
 var nextPoint = 0;
 
@@ -107,27 +103,23 @@ function addDataPoint(){
         clearInterval(repeat);
         return;
     }
-    let EpArray = [];
     let EpLogArray = [];
     // form new series
     for (let i = 0; i < chart.series[0].data.length; i++) {
-        EpArray.push(chart.series[0].data[i].y);
-        EpLogArray.push(chart.series[1].data[i].y);
+        EpLogArray.push(chart.series[0].data[i].y);
     }
     
-    EpArray.push(1 + epsilons[nextPoint]);
-    EpLogArray.push(Math.log(epsilons[nextPoint]));
+    EpLogArray.push(Math.log10(epsilons[nextPoint]));
+
+    writeEpsilonValue(EpLogArray[EpLogArray.length - 1]);
 
     // Dynamically change y-axis range
     chart.yAxis[0].update({
-        min: Math.min(EpArray[EpArray.length - 1], EpLogArray[EpLogArray.length - 1])
+        min: EpLogArray[EpLogArray.length - 1]
     });
     
     // render new data on graph
     chart.series[0].update({
-        data: EpArray
-    }, true);
-    chart.series[1].update({
         data: EpLogArray
     }, true);
     nextPoint += 1;
@@ -136,24 +128,22 @@ function addDataPoint(){
 function removePoint(){
     if (nextPoint <= 1) return;
     
-    let EpArray = [];
     let EpLogArray = [];
 
     for (let i = 0; i < chart.series[0].data.length - 1; i++) {
-        EpArray.push(chart.series[0].data[i].y)
-        EpLogArray.push(chart.series[1].data[i].y)
+        EpLogArray.push(chart.series[0].data[i].y)
     }
+
+
+    writeEpsilonValue(EpLogArray[EpLogArray.length - 1]);
 
     // Dynamically change y-axis range
     chart.yAxis[0].update({
-        min: Math.min(EpArray[EpArray.length - 1], EpLogArray[EpLogArray.length - 1])
+        min: EpLogArray[EpLogArray.length - 1]
     });
     
     // render new data on graph
     chart.series[0].update({
-        data: EpArray
-    }, true);
-    chart.series[1].update({
         data: EpLogArray
     }, true);
     nextPoint -= 1;

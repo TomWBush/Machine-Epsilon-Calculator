@@ -15,7 +15,7 @@ function startAnimation(){
                             addDataPoint();
                          }, 1050-document.getElementById('speed-slider').value);
     running = true;
-    calculateME(true);
+    calculateME();
 }
 
 function stopAnimation(){
