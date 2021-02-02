@@ -28,9 +28,11 @@ function resetGraph(){
          tooltip: {
          useHTML: true,
                 formatter: function(d){
+                            let current_epsilon = log_to_original[this.y];
                             // customize hover box
                              var rV = "Count: " + this.x + "<br/>";
-                             rV += "<span style='font-size: 12px'>Log10(Epsilon): " + (this.y) + "</span><br/>"
+                             rV += "<span style='font-size: 12px'>Epsilon: " + current_epsilon + "</span><br/>"
+                             rV += "<span style='font-size: 12px'>Log10(Epsilon): " + this.y + "</span><br/>"
                              return rV;
                 },
          },
@@ -97,6 +99,7 @@ function resetGraph(){
 var epsilons = calculateME();
 var chart = resetGraph();
 var nextPoint = 0;
+var log_to_original = {}
 
 function addDataPoint(){
     if (nextPoint >= epsilons.length) {
@@ -109,9 +112,13 @@ function addDataPoint(){
         EpLogArray.push(chart.series[0].data[i].y);
     }
     
-    EpLogArray.push(Math.log10(epsilons[nextPoint]));
+    let next_epsilon = epsilons[nextPoint];
 
-    writeEpsilonValue(EpLogArray[EpLogArray.length - 1]);
+    log_to_original[Math.log10(next_epsilon)] = next_epsilon;
+
+    EpLogArray.push(Math.log10(next_epsilon));
+
+    writeEpsilonValue(next_epsilon);
 
     // Dynamically change y-axis range
     chart.yAxis[0].update({
@@ -134,8 +141,7 @@ function removePoint(){
         EpLogArray.push(chart.series[0].data[i].y)
     }
 
-
-    writeEpsilonValue(EpLogArray[EpLogArray.length - 1]);
+    writeEpsilonValue(log_to_original[EpLogArray[EpLogArray.length - 1]]);
 
     // Dynamically change y-axis range
     chart.yAxis[0].update({
