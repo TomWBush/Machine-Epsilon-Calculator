@@ -30,19 +30,7 @@ p {
     font-size: 0.9em;
 }
 
-/* #epsilon-form {
-    display: block;
-    width: 50%;
-} */
-
-/* #form-label {
-    font-size: 1.05em !important;
-    position: relative;
-    margin-right: 0.2em;
-    top: 0.25em;
-} */
-
-#me-header {
+.me-header {
     margin-top: 0.5em;
 }
 
@@ -78,6 +66,12 @@ p {
 
 #step-button {
     margin-bottom: 0.5em;
+}
+
+#alternate-epsilon-window {
+    border-radius: 25px;
+    border: 2px solid lightblue;
+    padding: 20px; 
 }
 
 .slider {
