@@ -35,22 +35,25 @@
                             <button type="button" class="btn btn-warning" id="stopButton" onclick="stopAnimation();"> Pause  <i class="fas fa-pause"></i></button>
                             <button type="button" class="btn btn-danger" id="resetButton" onclick="reset();"> Reset </button>  
                         </div>
-                        <h5 class="me-header">Your machine epsilon is</h5>
-                        <input id="machine-epsilon" type="text" class="form-control">
+                        <div id="alternate-epsilon-window" style="margin-top: 1em;">
+                            <h5 class="me-header">Your machine epsilon is</h5>
+                            <div id="machine-epsilon" class="display-div"></div>
+                            <h5 class="me-header">Enter a compare value</h5>
+                            <div class="input-group mb-3">
+                                <input id="alt-start-value" type="text" class="form-control">
+                                <div class="input-group-append">
+                                    <button type="button" class="btn btn-primary" id="calculateButton" onclick="altMECalculate()">Enter</button>
+                                </div>
+                            </div>
+                            <span id="errmsg" style="color:red"></span>
+                            <h5 class="me-header">Compare value machine epsilon</h5>
+                            <div id="alt-machine-epsilon" class="display-div"></div>
+                            <h5 class="me-header">Smallest distinguishable difference</h5>
+                            <div id="smallest-value" class="display-div"></div>
+                        </div>
                         <h4 style="padding-top: 0.2em;"> Speed </h4>
                         <input class="slider" id="speed-slider" type="range" step="50" min="0" max="1000" value="500" onchange="changeSpeed();">
                         
-                        <div id="alternate-epsilon-window" style="margin-top: 1em;">
-                            <h5 class="me-header">
-                                <button type="button" class="btn btn-primary" id="calculateButton" onclick="altMECalculate()"> Calculate</button>
-                                the machine epsilon with
-                                <br>
-                                an alternative initial value</h5>
-                            <input id="alt-start-value" type="text" class="form-control">
-                            <span id="errmsg" style="color:red"></span>
-                            <h5 class="me-header">New machine epsilon</h5>
-                            <input id="alt-machine-epsilon" type="text" class="form-control">
-                        </div>
                     </div>
                 </div>
             </div>

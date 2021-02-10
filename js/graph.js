@@ -130,6 +130,8 @@ function addDataPoint(){
         data: EpLogArray
     }, true);
     nextPoint += 1;
+    if ($("#alt-machine-epsilon").html() != '')
+        altMECalculate();
 };
 
 function removePoint(){
@@ -153,4 +155,6 @@ function removePoint(){
         data: EpLogArray
     }, true);
     nextPoint -= 1;
+    if ($("#alt-machine-epsilon").html() != '')
+        altMECalculate();
 };

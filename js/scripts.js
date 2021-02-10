@@ -11,46 +11,78 @@ var running = false;
 
 /**
  * Calculate Machine Epsilon
+ * @param {number} c 
  */
-function calculateME(start_value = 1) {
-    let cnt = 0;
-    let eps = start_value;
-
-    let x = start_value + eps;
+function calculateME(c = 1) {
     let results = [];
+    let eps = c;
+    let cnt = 1;
 
-    while (x > start_value) {
+    let x = c + eps;
+
+    while (x > c) {
         eps /= 2;
-        x = start_value + eps;
-        results.push(eps);
-        cnt = cnt + 1;
+        x = c + eps;
+        results.push(eps / c);
+        ++cnt;
     }
     return results;
+}
+
+
+
+/**
+ * Calculate the smallest distinguishable value by the machine
+ * @param {number} value 
+ */
+function calculateSmallestDistinguishableValue(value) {
+    let cnt = 1;
+    let eps = value;
+
+    let x = value + eps;
+
+    while (x > value) {
+        eps /= 2;
+        x = value + eps;
+        ++cnt;
+    }
+    return eps;
 }
 
 /**
  * Calculate Machine Epsilon with an alternative starting value
  */
 function altMECalculate() {
-    $("#alt-machine-epsilon").val('');
-    let start_val = $("#alt-start-value").val();
-    start_val = start_val.trim();
-    if (isNaN(start_val) || start_val == '') {
+    let compare_val = $("#alt-start-value").val();
+    compare_val = compare_val.trim();
+    if (isNaN(compare_val) || compare_val == '') {
         $('#errmsg').html("Please enter a number").show();
         $('#errmsg').fadeOut(2000);
         return;
     }
-    start_val = Number(start_val);
-    let result = calculateME(start_val);
-    result = result[result.length - 1];
-    $("#alt-machine-epsilon").val(result);
+    compare_val = Number(compare_val);
+    // Get current step of 1 based machine epsilon calculation
+    // step_count = chart.series[0].data.length;
+    // if (step_count == 0) {
+    //     $('#errmsg').html("Please calculate your machine epsilon first").show();
+    //     $('#errmsg').fadeOut(2000);
+    //     return;
+    // }
+    // --step_count;
+
+    // Calculate compare value machine epsilon at current step
+    let result = calculateME(compare_val);
+    // $("#alt-machine-epsilon").html(result[step_count]);
+    // $("#smallest-value").html(calculateSmallestDistinguishableValue(compare_val));
+    $("#alt-machine-epsilon").html(result[result.length - 1]);
+    $("#smallest-value").html(calculateSmallestDistinguishableValue(compare_val));
 }
 
 /**
  * Helper for writing current epsilon into the text field
  */
 function writeEpsilonValue(eps) {
-    $("#machine-epsilon").val(eps);
+    $("#machine-epsilon").html(eps);
 }
 
 /**
@@ -93,5 +125,7 @@ function reset(){
     stopAnimation();
     nextPoint = 0;
     chart = resetGraph();
-    writeEpsilonValue('');
+    writeDeviceType('');
+    $("#alt-machine-epsilon").html('');
+    $("#smallest-value").html('');
 }
